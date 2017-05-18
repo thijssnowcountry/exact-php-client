@@ -30,13 +30,24 @@ class BankEntryLine extends Model
         'AmountDC',
         'AmountFC',
         'AmountVATFC',
+        'Asset',
+        'CostCenter',
+        'CostUnit',
+        'Date',
         'Description',
         'Document',
         'EntryID',
+        'EntryNumber',
         'GLAccount',
+        'LineNumber'
+        'Modified',
         'Notes',
+        'OurRef',
         'Project',
-        'VATCode'
+        'Quantity',
+        'VATCode',
+        'VATPercentage',
+        'VATType',
     ];
 
     protected $url = 'financialtransaction/BankEntryLines';
