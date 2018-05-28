@@ -1,4 +1,6 @@
-<?php namespace Picqer\Financials\Exact;
+<?php
+
+namespace Picqer\Financials\Exact;
 
 /**
  * Class SalesInvoiceLine
@@ -22,7 +24,7 @@
  * @property Guid $GLAccount The GL Account of the sales invoice line. This field is mandatory. This field is generated based on the revenue account of the item (or the related item group). G/L Account is also used to determine whether the costcenter / costunit is mandatory
  * @property String $GLAccountDescription Description of GLAccount
  * @property Guid $InvoiceID The InvoiceID identifies the sales invoice. All the lines of a sales invoice have the same InvoiceID
- * @property Double $Item Discount given on the default price. Discount = (DefaultPrice of Item - PriceItem in line) / DefaultPrice of Item
+ * @property Guid $Item Reference to the item that is sold in this sales invoice line
  * @property String $ItemCode Item code
  * @property String $ItemDescription Description of Item
  * @property Int32 $LineNumber Indicates the sequence of the lines within one invoice
@@ -50,7 +52,6 @@
  */
 class SalesInvoiceLine extends Model
 {
-
     use Query\Findable;
     use Persistance\Storable;
 
@@ -95,9 +96,8 @@ class SalesInvoiceLine extends Model
         'VATAmountFC',
         'VATCode',
         'VATCodeDescription',
-        'VATPercentage'
+        'VATPercentage',
     ];
 
     protected $url = 'salesinvoice/SalesInvoiceLines';
-
 }

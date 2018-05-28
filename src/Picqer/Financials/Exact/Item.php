@@ -1,4 +1,6 @@
-<?php namespace Picqer\Financials\Exact;
+<?php
+
+namespace Picqer\Financials\Exact;
 
 /**
  * Class Item
@@ -6,12 +8,18 @@
  * @package Picqer\Financials\Exact
  * @see https://start.exactonline.nl/docs/HlpRestAPIResourcesDetails.aspx?name=logisticsItems
  *
+ * @property String $Barcode
  * @property Guid $ID Primary key
  * @property String $Class_01 Item class code referring to ItemClasses with ClassID 1
  * @property String $Class_02 Item class code referring to ItemClasses with ClassID 2
  * @property String $Class_03 Item class code referring to ItemClasses with ClassID 3
  * @property String $Class_04 Item class code referring to ItemClasses with ClassID 4
  * @property String $Class_05 Item class code referring to ItemClasses with ClassID 5
+ * @property String $Class_06 Item class code referring to ItemClasses with ClassID 6
+ * @property String $Class_07 Item class code referring to ItemClasses with ClassID 7
+ * @property String $Class_08 Item class code referring to ItemClasses with ClassID 8
+ * @property String $Class_09 Item class code referring to ItemClasses with ClassID 9
+ * @property String $Class_10 Item class code referring to ItemClasses with ClassID 10
  * @property String $Code Barcode of the item (numeric string)
  * @property Byte $CopyRemarks Copy remarks to sales lines
  * @property String $CostPriceCurrency The currency of the current and proposed cost price
@@ -72,7 +80,6 @@
  * @property Byte $IsRegistrationCodeItem Indicated if the item is used in voucher functionality
  * @property Boolean $IsSalesItem Indicates if the item can be sold
  * @property Boolean $IsSerialItem Indicates that serial numbers are used for this item
- * @property Boolean $IsSerialNumberItem Used with Serial number feature. Indicates if the item can have a serial number
  * @property Boolean $IsStockItem If you have the Trade or Manufacturing license and you check this property the item will be shown in the stock positions overview, stock counts and transaction lists. If you have the Invoice module and you check this property you will get a general journal entry based on the Stock and Costs G/L accounts of the item group. If you don’t want the general journal entry to be created you should change the Stock/Costs G/L account on the Item group page to the type Costs instead of Inventory.
  * @property Boolean $IsSubcontractedItem Indicates if the item is provided by an outside supplier
  * @property Byte $IsTime Indicates if the item is a time unit item (for example a labor hour item)
@@ -91,20 +98,29 @@
  * @property DateTime $StartDate Together with StartDate this determines if the item is active
  * @property Byte $Unit Indicates if the item is a time unit item (for example a labor hour item)
  * @property String $UnitDescription Description of Unit
+ * @property String PictureUrl
+ * @property String PictureThumbnailUrl
+ * @property String PictureName
  */
 class Item extends Model
 {
-
     use Query\Findable;
     use Persistance\Storable;
-
+    use Persistance\Downloadable;
+        
     protected $fillable = [
+        'Barcode',
         'ID',
         'Class_01',
         'Class_02',
         'Class_03',
         'Class_04',
         'Class_05',
+        'Class_06',
+        'Class_07',
+        'Class_08',
+        'Class_09',
+        'Class_10',
         'Code',
         'CopyRemarks',
         'CostPriceCurrency',
@@ -165,7 +181,6 @@ class Item extends Model
         'IsRegistrationCodeItem',
         'IsSalesItem',
         'IsSerialItem',
-        'IsSerialNumberItem',
         'IsStockItem',
         'IsSubcontractedItem',
         'IsTime',
@@ -184,9 +199,11 @@ class Item extends Model
         'StartDate',
         'Stock',
         'Unit',
-        'UnitDescription'
+        'UnitDescription',
+        'PictureUrl',
+        'PictureThumbnailUrl',
+        'PictureName',
     ];
 
     protected $url = 'logistics/Items';
-
 }
