@@ -8,11 +8,11 @@ namespace Picqer\Financials\Exact;
  * @package Picqer\Financials\Exact
  * @see https://start.exactonline.nl/docs/HlpRestAPIResourcesDetails.aspx?name=documentsDocumentAttachments
  *
- * @property Guid $ID Primary key
- * @property Binary $Attachment Contains the attachment
- * @property Guid $Document Reference to the Document
- * @property String $FileName Filename of the attachment
- * @property Double $FileSize File size of the attachment
+ * @property string $ID Primary key
+ * @property string $Attachment Contains the attachment
+ * @property string $Document Reference to the Document
+ * @property string $FileName Filename of the attachment
+ * @property float $FileSize File size of the attachment
  */
 class DocumentAttachment extends Model
 {

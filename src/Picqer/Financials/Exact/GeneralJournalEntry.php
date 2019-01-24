@@ -8,15 +8,15 @@ namespace Picqer\Financials\Exact;
  * @package Picqer\Financials\Exact
  * @see https://start.exactonline.nl/docs/HlpRestAPIResourcesDetails.aspx?name=GeneralJournalEntryGeneralJournalEntries
  *
- * @property Guid $EntryID Primary key
- * @property String $Currency Currency code
- * @property Int32 $EntryNumber Entry number
- * @property Double $ExchangeRate Exchange rate
- * @property Int16 $FinancialPeriod Financial period
- * @property Int16 $FinancialYear Financial year
+ * @property string $EntryID Primary key
+ * @property string $Currency Currency code
+ * @property int $EntryNumber Entry number
+ * @property float $ExchangeRate Exchange rate
+ * @property int $FinancialPeriod Financial period
+ * @property int $FinancialYear Financial year
  * @property GeneralJournalEntryLines $GeneralJournalEntryLines Collection of lines
- * @property String $JournalCode Code of Journal
- * @property Boolean $Reversal Indicates that amounts are reversed
+ * @property string $JournalCode Code of Journal
+ * @property bool $Reversal Indicates that amounts are reversed
  */
 class GeneralJournalEntry extends Model
 {

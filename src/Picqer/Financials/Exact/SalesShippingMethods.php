@@ -8,20 +8,20 @@ namespace Picqer\Financials\Exact;
  * @package Picqer\Financials\Exact
  * @see https://start.exactonline.nl/docs/HlpRestAPIResourcesDetails.aspx?name=SalesShippingMethods
  *
- * @property Guid $ID Primary key
- * @property Boolean $Active Active
- * @property String $Code Code of the shipping method
- * @property DateTime $Created Creation date
- * @property Guid $Creator User ID of creator
- * @property String $CreatorFullName Name of creator
- * @property String $Description Description of shipping method
- * @property Int32 $Division Division code
- * @property DateTime $Modified Last modified date
- * @property Guid $Modifier User ID of modifier
- * @property String $ModifierFullName Name of modifier
- * @property String $Notes Notes
- * @property String $ShippingRatesURL Shipping method rates URL
- * @property String $TrackingURL Tracking URL
+ * @property string $ID Primary key
+ * @property bool $Active Active
+ * @property string $Code Code of the shipping method
+ * @property string $Created Creation date
+ * @property string $Creator User ID of creator
+ * @property string $CreatorFullName Name of creator
+ * @property string $Description Description of shipping method
+ * @property int $Division Division code
+ * @property string $Modified Last modified date
+ * @property string $Modifier User ID of modifier
+ * @property string $ModifierFullName Name of modifier
+ * @property string $Notes Notes
+ * @property string $ShippingRatesURL Shipping method rates URL
+ * @property string $TrackingURL Tracking URL
  */
 class SalesShippingMethods extends Model
 {

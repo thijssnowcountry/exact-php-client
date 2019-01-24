@@ -39,47 +39,47 @@ class Connection
     private $tokenUrl = '/api/oauth2/token';
 
     /**
-     * @var
+     * @var mixed
      */
     private $exactClientId;
 
     /**
-     * @var
+     * @var mixed
      */
     private $exactClientSecret;
 
     /**
-     * @var
+     * @var mixed
      */
     private $authorizationCode;
 
     /**
-     * @var
+     * @var mixed
      */
     private $accessToken;
 
     /**
-     * @var
+     * @var int The Unix timestamp at which the access token expires.
      */
     private $tokenExpires;
 
     /**
-     * @var
+     * @var mixed
      */
     private $refreshToken;
 
     /**
-     * @var
+     * @var mixed
      */
     private $redirectUrl;
 
     /**
-     * @var
+     * @var mixed
      */
     private $division;
 
     /**
-     * @var Client
+     * @var Client|null
      */
     private $client;
 
@@ -89,12 +89,22 @@ class Connection
     private $tokenUpdateCallback;
 
     /**
-     *
+     * @var callable(Connection)
+     */
+    private $acquireAccessTokenLockCallback;
+
+    /**
+     * @var callable(Connection)
+     */
+    private $acquireAccessTokenUnlockCallback;
+
+    /**
+     * @var callable[]
      */
     protected $middleWares = [];
 
     /**
-    * @var
+    * @var string|null
     */
     public $nextUrl = null;
 
@@ -145,7 +155,7 @@ class Connection
 
     /**
      * @param string $method
-     * @param $endpoint
+     * @param string $endpoint
      * @param mixed $body
      * @param array $params
      * @param array $headers
@@ -182,7 +192,7 @@ class Connection
     }
 
     /**
-     * @param $url
+     * @param string $url
      * @param array $params
      * @param array $headers
      * @return mixed
@@ -205,8 +215,8 @@ class Connection
     }
 
     /**
-     * @param $url
-     * @param $body
+     * @param string $url
+     * @param mixed $body
      * @return mixed
      * @throws ApiException
      */
@@ -227,8 +237,8 @@ class Connection
     }
 
     /**
-     * @param $url
-     * @param $body
+     * @param string $url
+     * @param mixed $body
      * @return mixed
      * @throws ApiException
      */
@@ -249,7 +259,7 @@ class Connection
     }
 
     /**
-     * @param $url
+     * @param string $url
      * @return mixed
      * @throws ApiException
      */
@@ -441,16 +451,21 @@ class Connection
             ];
         }
 
-        $response = $this->client()->post($this->getTokenUrl(), $body);
 
-        if ($response->getStatusCode() == 200) {
+        try {
+            if (is_callable($this->acquireAccessTokenLockCallback)) {
+                call_user_func($this->acquireAccessTokenLockCallback, $this);
+            }
+
+            $response = $this->client()->post($this->getTokenUrl(), $body);
+
             Psr7\rewind_body($response);
             $body = json_decode($response->getBody()->getContents(), true);
 
             if (json_last_error() === JSON_ERROR_NONE) {
                 $this->accessToken  = $body['access_token'];
                 $this->refreshToken = $body['refresh_token'];
-                $this->tokenExpires = $this->getDateTimeFromExpires($body['expires_in']);
+                $this->tokenExpires = $this->getTimestampFromExpiresIn($body['expires_in']);
 
                 if (is_callable($this->tokenUpdateCallback)) {
                     call_user_func($this->tokenUpdateCallback, $this);
@@ -458,22 +473,31 @@ class Connection
             } else {
                 throw new ApiException('Could not acquire tokens, json decode failed. Got response: ' . $response->getBody()->getContents());
             }
-        } else {
-            throw new ApiException('Could not acquire or refresh tokens');
+        } catch (BadResponseException $ex) {
+            throw new ApiException('Could not acquire or refresh tokens [http ' . $ex->getResponse()->getStatusCode() . ']', 0, $ex);
+        } finally {
+            if (is_callable($this->acquireAccessTokenUnlockCallback)) {
+                call_user_func($this->acquireAccessTokenUnlockCallback, $this);
+            }
         }
-    }
-
-    private function getDateTimeFromExpires($expires)
-    {
-        if (!is_numeric($expires)) {
-            throw new \InvalidArgumentException('Function requires a numeric expires value');
-        }
-
-        return time() + 600;
     }
 
     /**
-     * @return mixed
+     * Translates expires_in to a Unix timestamp.
+     * @param string $expiresIn Number of seconds until the token expires.
+     * @return int
+     */
+    private function getTimestampFromExpiresIn($expiresIn)
+    {
+        if (!ctype_digit($expiresIn)) {
+            throw new \InvalidArgumentException('Function requires a numeric expires value');
+        }
+
+        return time() + $expiresIn;
+    }
+
+    /**
+     * @return int The Unix timestamp at which the access token expires.
      */
     public function getTokenExpires()
     {
@@ -481,7 +505,7 @@ class Connection
     }
 
     /**
-     * @param mixed $tokenExpires
+     * @param int $tokenExpires The Unix timestamp at which the access token expires.
      */
     public function setTokenExpires($tokenExpires)
     {
@@ -533,6 +557,20 @@ class Connection
     public function setDivision($division)
     {
         $this->division = $division;
+    }
+
+    /**
+     * @param callable $callback
+     */
+    public function setAcquireAccessTokenLockCallback($callback) {
+        $this->acquireAccessTokenLockCallback = $callback;
+    }
+
+    /**
+     * @param callable $callback
+     */
+    public function setAcquireAccessTokenUnlockCallback($callback) {
+        $this->acquireAccessTokenUnlockCallback = $callback;
     }
 
     /**

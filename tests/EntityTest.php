@@ -110,6 +110,16 @@ class EntityTest extends TestCase
         $this->performEntityTest(\Picqer\Financials\Exact\DocumentAttachment::class);
     }
 
+    public function testDocumentTypeEntity()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\DocumentType::class);
+    }
+
+    public function testEmployeeEntity()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\Employee::class);
+    }
+
     public function testGeneralJournalEntity()
     {
         $this->performEntityTest(\Picqer\Financials\Exact\GeneralJournalEntry::class);
@@ -139,12 +149,12 @@ class EntityTest extends TestCase
     {
         $this->performEntityTest(\Picqer\Financials\Exact\Item::class);
     }
-    
+
     public function testItemExtraField()
     {
         $this->performEntityTest(\Picqer\Financials\Exact\ItemExtraField::class);
     }
-        
+
     public function testItemGroupEntity()
     {
         $this->performEntityTest(\Picqer\Financials\Exact\ItemGroup::class);
@@ -375,14 +385,14 @@ class EntityTest extends TestCase
         $this->performEntityTest(\Picqer\Financials\Exact\InvoiceTerm::class);
     }
 
-    public function testBillOfMaterialVersions()
+    public function testBillOfMaterialVersion()
     {
-        $this->performEntityTest(\Picqer\Financials\Exact\BillOfMaterialVersions::class);
+        $this->performEntityTest(\Picqer\Financials\Exact\BillOfMaterialVersion::class);
     }
 
-    public function testBillOfMaterialMaterials()
+    public function testBillOfMaterialMaterial()
     {
-        $this->performEntityTest(\Picqer\Financials\Exact\BillOfMaterialMaterials::class);
+        $this->performEntityTest(\Picqer\Financials\Exact\BillOfMaterialMaterial::class);
     }
 
     public function testProject()
@@ -390,9 +400,44 @@ class EntityTest extends TestCase
         $this->performEntityTest(\Picqer\Financials\Exact\Project::class);
     }
 
+    public function testProjectWBSByProject()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\ProjectWBSByProject::class);
+    }
+
     public function testShopOrder()
     {
         $this->performEntityTest(\Picqer\Financials\Exact\ShopOrder::class);
+    }
+
+    public function testTimeTransactionEntity()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\TimeTransaction::class);
+    }
+
+    public function testUser()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\User::class);
+    }
+
+    public function testShopOrderMaterialPlan()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\ShopOrderMaterialPlan::class);
+    }
+
+    public function testShopOrderRoutingStepPlan()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\ShopOrderRoutingStepPlan::class);
+    }
+
+    public function testOperation()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\Operation::class);
+    }
+
+    public function testOperationResource()
+    {
+        $this->performEntityTest(\Picqer\Financials\Exact\OperationResource::class);
     }
 
     protected function performEntityTest($entityName)
