@@ -1,34 +1,30 @@
 <?php
-
 namespace Picqer\Financials\Exact;
-
 /**
- * Class Journal
+ * Class ExchangeRate
  *
  * @package Picqer\Financials\Exact
- * @see https://start.exactonline.nl/docs/HlpRestAPIResourcesDetails.aspx?name=FinancialJournals
+ * @see https://start.exactonline.nl/docs/HlpRestAPIResourcesDetails.aspx?name=FinancialExchangeRates
  *
- * @property Guid       $ID Primary Key
- * @property DateTime   $Created
- * @property Guid       $Creator User ID of creator
- * @property String     $CreatorFullName Name of creator
- * @property int32      $Division Division code
- * @property DateTime   $Modified Last modified date
- * @property Guid       $Modifier User ID of modifier
- * @property String     $ModifierFullName 	Name of modifier
- * @property Double     $Rate 	The exchange rate is stored as 1 TARGET CURRENCY = x SOURCE CURRENCY
- * @property String     $SourceCurrency  The foreign currency example GBP
- * @property String     $SourceCurrencyDescription Description of SourceCurrency
- * @property DateTime   $StartDate The date as of which the rate is valid. The rate is valid until a next rate is defined
- * @property String     $TargetCurrency The default currency of the division Example EUR
- * @property String     $TargetCurrencyDescription Description of TargetCurrency
-  */
+ * @property string $ID Primary key
+ * @property string $Created Creation date
+ * @property string $Creator User ID of creator
+ * @property string $CreatorFullName Name of creator
+ * @property int $Division Division code
+ * @property string $Modified Last modified date
+ * @property string $Modifier User ID of modifier
+ * @property string $ModifierFullName Name of modifier
+ * @property float $Rate The exchange rate is stored as 1 TARGET CURRENCY = x SOURCE CURRENCY
+ * @property string $SourceCurrency The foreign currency
+ * @property string $SourceCurrencyDescription Description of SourceCurrency
+ * @property string $StartDate The date as of which the rate is valid. The rate is valid until a next rate is defined
+ * @property string $TargetCurrency The default currency of the division
+ * @property string $TargetCurrencyDescription Description of TargetCurrency
+ */
 class ExchangeRate extends Model
 {
-
     use Query\Findable;
     use Persistance\Storable;
-
     protected $fillable = [
         'ID',
         'Created',
@@ -43,9 +39,7 @@ class ExchangeRate extends Model
         'SourceCurrencyDescription',
         'StartDate',
         'TargetCurrency',
-        'TargetCurrencyDescription'
+        'TargetCurrencyDescription',
     ];
-
-    protected $url = '/financial/ExchangeRates';
-
+    protected $url = 'financial/ExchangeRates';
 }
