@@ -1,9 +1,8 @@
 <?php
 namespace Picqer\Financials\Exact;
 /**
- * Class ExchangeRate
+ * Class ExchangeRate.
  *
- * @package Picqer\Financials\Exact
  * @see https://start.exactonline.nl/docs/HlpRestAPIResourcesDetails.aspx?name=FinancialExchangeRates
  *
  * @property string $ID Primary key

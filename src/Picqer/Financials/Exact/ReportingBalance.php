@@ -3,9 +3,8 @@
 namespace Picqer\Financials\Exact;
 
 /**
- * Class ReportingBalance
+ * Class ReportingBalance.
  *
- * @package Picqer\Financials\Exact
  * @see https://start.exactonline.nl/docs/HlpRestAPIResourcesDetails.aspx?name=FinancialReportingBalance
  *
  * @property int $ID Record ID
@@ -30,6 +29,7 @@ namespace Picqer\Financials\Exact;
 class ReportingBalance extends Model
 {
     use Query\Findable;
+    use Persistance\Storable;
 
     protected $primaryKey = 'ID';
 

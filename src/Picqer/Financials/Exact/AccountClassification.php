@@ -3,10 +3,9 @@
 namespace Picqer\Financials\Exact;
 
 /**
- * Class AccountClassification
+ * Class AccountClassification.
  *
- * @package Picqer\Financials\Exact
- * @see https://start.exactonline.nl/docs/HlpRestAPIResourcesDetails.aspx?name=crmAccountClassifications
+ * @see https://start.exactonline.nl/docs/HlpRestAPIResourcesDetails.aspx?name=CRMAccountClassifications
  *
  * @property string $ID Primary key
  * @property string $AccountClassificationName Reference to Account classification name
@@ -15,7 +14,7 @@ namespace Picqer\Financials\Exact;
  * @property string $Created Creation date
  * @property string $Creator User ID of creator
  * @property string $CreatorFullName Name of creator
- * @property string $Description Description of AccountClassificationName
+ * @property string $Description Description
  * @property int $Division Division code
  * @property string $Modified Last modified date
  * @property string $Modifier User ID of modifier
@@ -23,7 +22,6 @@ namespace Picqer\Financials\Exact;
  */
 class AccountClassification extends Model
 {
-
     use Query\Findable;
     use Persistance\Storable;
 

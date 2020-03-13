@@ -3,9 +3,8 @@
 namespace Picqer\Financials\Exact;
 
 /**
- * Class CashEntry
+ * Class CashEntry.
  *
- * @package Picqer\Financials\Exact
  * @see https://start.exactonline.nl/docs/HlpRestAPIResourcesDetails.aspx?name=financialtransactionCashEntries
  *
  * @property string $EntryID Primary key (read-only)
@@ -60,4 +59,3 @@ class CashEntry extends Model
 
     protected $url = 'financialtransaction/CashEntries';
 }
-

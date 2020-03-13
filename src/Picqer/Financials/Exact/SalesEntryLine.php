@@ -3,10 +3,9 @@
 namespace Picqer\Financials\Exact;
 
 /**
- * Class SalesEntryLine
+ * Class SalesEntryLine.
  *
- * @package Picqer\Financials\Exact
- * @see https://start.exactonline.nl/docs/HlpRestAPIResourcesDetails.aspx?name=salesentrySalesEntryLines
+ * @see https://start.exactonline.nl/docs/HlpRestAPIResourcesDetails.aspx?name=SalesEntrySalesEntryLines
  *
  * @property string $ID Primary key
  * @property float $AmountDC Amount in the default currency of the company. For almost all lines this can be calculated like: AmountDC = AmountFC * RateFC.
@@ -22,18 +21,29 @@ namespace Picqer\Financials\Exact;
  * @property string $EntryID The unique ID of the entry. Via this ID all transaction lines of a single entry can be retrieved
  * @property float $ExtraDutyAmountFC Extra duty amount in the currency of the transaction. Both extra duty amount and VAT amount need to be specified in order to differ this property from automatically calculated.
  * @property float $ExtraDutyPercentage Extra duty percentage for the item
+ * @property string $From date to identify the range for deferred revenue. This is used in combination with the property 'To' that defines the end date
  * @property string $GLAccount The GL Account of the invoice line. This field is generated based on the revenue account of the item (or the related item group). G/L Account is also used to determine whether the costcenter / costunit is mandatory
  * @property string $GLAccountCode Code of GLAccount
  * @property string $GLAccountDescription Description of GLAccount
+ * @property string $IntraStatArea IntraStat area
+ * @property string $IntraStatCountry IntraStatCountry
+ * @property string $IntraStatDeliveryTerm IntraStat delivery term
+ * @property string $IntraStatTransactionA IntraStat transaction a
+ * @property string $IntraStatTransportMethod IntraStat transport method
  * @property int $LineNumber Indicates the sequence of the lines within one entry
  * @property string $Notes Extra notes
  * @property string $Project The project to which the sales transaction line is linked. The project can be different per line. Sometimes also the project in the header is filled although this is not really used
  * @property string $ProjectDescription Description of Project
  * @property float $Quantity The number of items sold in default units. The quantity shown in the entry screen is Quantity * UnitFactor
  * @property string $SerialNumber Serial number
+ * @property float $StatisticalNetWeight Statistical NetWeight
+ * @property string $StatisticalNumber Statistical Number
+ * @property float $StatisticalQuantity Statistical Quantity
+ * @property float $StatisticalValue Statistical Value
  * @property string $Subscription When generating invoices from subscriptions, this field records the link between invoice lines and subscription lines
  * @property string $SubscriptionDescription Description of Subscription
  * @property string $TaxSchedule Obsolete
+ * @property string $To date to identify the range for deferred revenue. This is used in combination with the property 'From' that defines the start date
  * @property string $TrackingNumber Reference to TrackingNumber
  * @property string $TrackingNumberDescription Description of TrackingNumber
  * @property int $Type Type: 20 = Sales entry, 21 = Sales credit note
@@ -65,18 +75,29 @@ class SalesEntryLine extends Model
         'EntryID',
         'ExtraDutyAmountFC',
         'ExtraDutyPercentage',
+        'From',
         'GLAccount',
         'GLAccountCode',
         'GLAccountDescription',
+        'IntraStatArea',
+        'IntraStatCountry',
+        'IntraStatDeliveryTerm',
+        'IntraStatTransactionA',
+        'IntraStatTransportMethod',
         'LineNumber',
         'Notes',
         'Project',
         'ProjectDescription',
         'Quantity',
         'SerialNumber',
+        'StatisticalNetWeight',
+        'StatisticalNumber',
+        'StatisticalQuantity',
+        'StatisticalValue',
         'Subscription',
         'SubscriptionDescription',
         'TaxSchedule',
+        'To',
         'TrackingNumber',
         'TrackingNumberDescription',
         'Type',

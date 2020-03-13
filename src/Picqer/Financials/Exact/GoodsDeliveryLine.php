@@ -3,12 +3,11 @@
 namespace Picqer\Financials\Exact;
 
 /**
- * Class GoodsDeliveryLine
+ * Class GoodsDeliveryLine.
  *
- * @package Picqer\Financials\Exact
  * @see https://start.exactonline.nl/docs/HlpRestAPIResourcesDetails.aspx?name=SalesOrderGoodsDeliveryLines
  *
- * @property string $ID Primary key
+ * @property string $ID The unique identifier of a stock transaction for a goods delivery line. A goods delivery line can be split into multiple storage locations. In this case, multiple storage locations will have the same stock transaction ID.
  * @property StockBatchNumbers $BatchNumbers Collection of batch numbers
  * @property string $Created Creation date
  * @property string $Creator User ID of creator
@@ -39,7 +38,6 @@ namespace Picqer\Financials\Exact;
  */
 class GoodsDeliveryLine extends Model
 {
-
     use Query\Findable;
     use Persistance\Storable;
 
@@ -75,5 +73,4 @@ class GoodsDeliveryLine extends Model
     ];
 
     protected $url = 'salesorder/GoodsDeliveryLines';
-
 }

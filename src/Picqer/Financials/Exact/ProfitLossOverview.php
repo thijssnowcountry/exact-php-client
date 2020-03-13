@@ -3,17 +3,16 @@
 namespace Picqer\Financials\Exact;
 
 /**
- * Class ProfitLossOverview
+ * Class ProfitLossOverview.
  *
- * @package Picqer\Financials\Exact
  * @see https://start.exactonline.nl/docs/HlpRestAPIResourcesDetails.aspx?name=ReadFinancialProfitLossOverview
  *
- * @property int $CurrentYear Current year, Primary key
+ * @property int $CurrentYear Primary key, Current year
  * @property float $CostsCurrentPeriod Costs in current period
  * @property float $CostsCurrentYear Costs in current year
  * @property float $CostsPreviousYear Costs in previous year
  * @property float $CostsPreviousYearPeriod Costs in period of previous year
- * @property string $CurrencyCode Currency Code
+ * @property string $CurrencyCode Currency code
  * @property int $CurrentPeriod Current period
  * @property int $PreviousYear Previous year
  * @property int $PreviousYearPeriod Period in previous year
@@ -29,16 +28,17 @@ namespace Picqer\Financials\Exact;
 class ProfitLossOverview extends Model
 {
     use Query\Findable;
+    use Persistance\Storable;
 
     protected $primaryKey = 'CurrentYear';
 
     protected $fillable = [
+        'CurrentYear',
         'CostsCurrentPeriod',
         'CostsCurrentYear',
         'CostsPreviousYear',
         'CostsPreviousYearPeriod',
         'CurrencyCode',
-        'CurrentYear',
         'CurrentPeriod',
         'PreviousYear',
         'PreviousYearPeriod',
@@ -49,7 +49,7 @@ class ProfitLossOverview extends Model
         'RevenueCurrentPeriod',
         'RevenueCurrentYear',
         'RevenuePreviousYear',
-        'RevenuePreviousPeriod',
+        'RevenuePreviousYearPeriod',
     ];
 
     protected $url = 'read/financial/ProfitLossOverview';
