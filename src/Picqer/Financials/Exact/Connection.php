@@ -245,11 +245,14 @@ class Connection
      */
     public function get($url, array $params = [], array $headers = [])
     {
+        $this->log("get ".$url);
         $url = $this->formatUrl($url, $url !== 'current/Me', $url == $this->nextUrl);
 
         try {
             $request = $this->createRequest('GET', $url, null, $params, $headers);
             $response = $this->client()->send($request);
+
+            $this->extractRateLimits($response);
 
             return $this->parseResponse($response, $url != $this->nextUrl);
         } catch (Exception $e) {
@@ -267,6 +270,7 @@ class Connection
      */
     public function post($url, $body)
     {
+        $this->log("post ".$url);
         $url = $this->formatUrl($url);
 
         try {
@@ -289,6 +293,7 @@ class Connection
      */
     public function put($url, $body)
     {
+        $this->log("put ".$url);
         $url = $this->formatUrl($url);
 
         try {
@@ -310,6 +315,7 @@ class Connection
      */
     public function delete($url)
     {
+        $this->log("delete ".$url);
         $url = $this->formatUrl($url);
 
         try {
@@ -764,5 +770,31 @@ class Connection
 
         $this->minutelyLimit = (int) $response->getHeaderLine('X-RateLimit-Minutely-Limit');
         $this->minutelyLimitRemaining = (int) $response->getHeaderLine('X-RateLimit-Minutely-Remaining');
+        $this->log("RL:  dailyLimitRemaining: ".$this->dailyLimitRemaining."/ minutelyLimitRemaining: ".$this->minutelyLimitRemaining);
+    }
+
+    function log($arMsg)
+    {
+        //define empty string
+        $stEntry = "";
+        //get the event occur date time,when it will happened
+        $arLogData['event_datetime'] = '[' . date('D Y-m-d h:i:s A') . '] ';
+        //if message is array type
+        if (is_array($arMsg)) {
+            //concatenate msg with datetime
+            foreach ($arMsg as $msg)
+                $stEntry .= $arLogData['event_datetime'] . " " . $msg . PHP_EOL;
+        } else {   //concatenate msg with datetime
+
+            $stEntry .= $arLogData['event_datetime'] . " " . $arMsg . PHP_EOL;
+        }
+        //create file with current date name
+        $stCurLogFileName = 'exactperformance.log';
+        //open the file append mode,dats the log file will create day wise
+        $fHandler = fopen("./var/log/".$stCurLogFileName, 'a+');
+        //write the info into the file
+        fwrite($fHandler, $stEntry);
+        //close handler
+        fclose($fHandler);
     }
 }
